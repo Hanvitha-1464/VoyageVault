@@ -11,7 +11,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://localhost:8080/',
+        target: 'https://voyagevault-1464.azurewebsites.net/',
         changeOrigin: true,
       }
     },
