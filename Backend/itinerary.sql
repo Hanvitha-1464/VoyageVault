@@ -7,3 +7,7 @@ CREATE TABLE IF NOT EXISTS activities (
     added_by INT NOT NULL,
     FOREIGN KEY (added_by) REFERENCES users(id) ON DELETE CASCADE
 );
+
+ALTER TABLE activities ADD COLUMN room_id INT NOT NULL;
+ALTER TABLE activities ADD FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE CASCADE;
+ALTER TABLE activities ADD INDEX idx_room_id (room_id);

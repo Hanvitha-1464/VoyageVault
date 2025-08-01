@@ -1,17 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { 
-  createRoom, 
-  joinRoom, 
-  enterRoom,
-  getUserRooms,
-  getRoomDetails
-} = require('../Controllers/RoomController');
-const { 
-  validateCreateRoom, 
-  validateJoinRoom, 
-  validateRoomName
-} = require('../Middleware/RoomValidation');
+const { createRoom,  joinRoom,  enterRoom, getUserRooms, getRoomDetails} = require('../Controllers/RoomController');
+const { validateCreateRoom, validateJoinRoom, validateRoomName} = require('../Middleware/RoomValidation');
 const auth = require('../Middleware/AuthMiddleware');
 
 router.post('/create', auth, validateCreateRoom, createRoom);

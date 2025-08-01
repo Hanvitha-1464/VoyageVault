@@ -84,7 +84,6 @@ const createRoom = async (req,res) => {
 
         await connection.commit();
 
-        // Modified query to join with users table
         const [newRoom] = await connection.execute(
             'SELECT r.id, r.room_name, r.created_by, u.username as creator_username FROM rooms r JOIN users u ON r.created_by = u.id WHERE r.id=?',
             [result.insertId]
@@ -100,7 +99,7 @@ const createRoom = async (req,res) => {
             room:{
                 id:room.id,
                 roomName:room.room_name,
-                createdBy:room.creator_username, // Now returns username instead of ID
+                createdBy:room.creator_username, 
                 isOwner:true
             }
         });
@@ -142,7 +141,6 @@ const joinRoom=async(req,res)=>{
 
         connection = await pool.getConnection();
 
-        // Modified query to join with users table
         const [rooms]=await connection.execute(
             'SELECT r.id, r.room_name, r.room_password, r.created_by, u.username as creator_username FROM rooms r JOIN users u ON r.created_by = u.id WHERE r.room_name=?',
             [roomName.trim()],
@@ -189,7 +187,7 @@ const joinRoom=async(req,res)=>{
           room: {
             id: room.id,
             roomName: room.room_name,
-            createdBy: room.creator_username, // Now returns username instead of ID
+            createdBy: room.creator_username, 
             isOwner: room.created_by === userId
           }
         });
@@ -216,7 +214,6 @@ const enterRoom = async (req,res) => {
 
         connection = await pool.getConnection();
 
-        // Modified query to join with users table
         const [rooms] = await connection.execute(
             'SELECT r.id, r.room_name, r.created_by, u.username as creator_username FROM rooms r JOIN users u ON r.created_by = u.id LEFT JOIN room_members rm ON r.id = rm.room_id WHERE r.room_name=? AND (r.created_by=? OR rm.user_id=?)',
             [roomName.trim(),userId,userId]
@@ -239,7 +236,7 @@ const enterRoom = async (req,res) => {
             room:{
                 id:room.id,
                 roomName:room.room_name,
-                createdBy: room.creator_username, // Now returns username instead of ID
+                createdBy: room.creator_username, 
                 isOwner:room.created_by===userId
             }
         });
@@ -263,7 +260,6 @@ const getUserRooms=async(req,res)=>{
         const userId=req.user.userId;
         connection=await pool.getConnection();
 
-        // Modified query to join with users table
         const[rooms]=await connection.execute(
             `SELECT DISTINCT r.id, r.room_name, r.created_by, u.username as creator_username,
             CASE WHEN r.created_by=? THEN 1 ELSE 0 END as isOwner
@@ -277,7 +273,7 @@ const getUserRooms=async(req,res)=>{
         const formattedRooms=rooms.map(room=>({
             id:room.id,
             roomName:room.room_name,
-            createdBy: room.creator_username, // Now returns username instead of ID
+            createdBy: room.creator_username, 
             isOwner:Boolean(room.isOwner)
         }));
 
@@ -299,7 +295,6 @@ const getUserRooms=async(req,res)=>{
     }
 };
 
-// Add this new endpoint for getting room details by name
 const getRoomDetails = async (req, res) => {
     let connection;
     try {
@@ -328,7 +323,7 @@ const getRoomDetails = async (req, res) => {
             room: {
                 id: room.id,
                 roomName: room.room_name,
-                createdBy: room.creator_username, // Returns username instead of ID
+                createdBy: room.creator_username, 
                 isOwner: room.created_by === userId
             }
         });
@@ -351,5 +346,5 @@ module.exports = {
     joinRoom,
     enterRoom,
     getUserRooms,
-    getRoomDetails // Add this new export
+    getRoomDetails
 };

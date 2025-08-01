@@ -1,16 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  MapPin, 
-  Clock, 
-  Calendar,
-  Plus,
-  Users,
-  User,
-  Trash2,
-  ArrowLeft,
-  Loader2,
-  AlertCircle
-} from 'lucide-react';
+import {MapPin, Clock, Calendar, Plus, Users, User, Trash2, ArrowLeft, Loader2, AlertCircle} from 'lucide-react';
 
 const ItineraryPlanner = () => {
   const [activities, setActivities] = useState([]);
@@ -32,7 +21,6 @@ const ItineraryPlanner = () => {
   });
 
   useEffect(() => {
-    // Get user data from localStorage like in RoomManagement
     const storedUser = localStorage.getItem('user'); 
     if (storedUser) {
       try {
@@ -50,7 +38,6 @@ const ItineraryPlanner = () => {
       setUser({ username: 'User', email: 'user@example.com', id: null });
     }
 
-    // Get room information from URL
     const pathParts = window.location.pathname.split('/');
     const roomNameFromUrl = pathParts[pathParts.length - 1];
     const decodedRoomName = decodeURIComponent(roomNameFromUrl);
@@ -86,7 +73,6 @@ const ItineraryPlanner = () => {
       } else {
         console.error('Failed to fetch room details:', response.status);
         setError('Failed to load room details');
-        // Fallback to URL-based room data
         setRoomData({
           id: `room_${Date.now()}`,
           roomName: roomName,
@@ -96,7 +82,6 @@ const ItineraryPlanner = () => {
     } catch (error) {
       console.error('Error fetching room details:', error);
       setError('Network error while loading room details');
-      // Fallback to URL-based room data
       setRoomData({
         id: `room_${Date.now()}`,
         roomName: roomName,
@@ -196,7 +181,7 @@ const ItineraryPlanner = () => {
           endTime: activityForm.endTime,
           addedBy: user.id,
           roomId: roomData.id,
-          username: user.username // Include username in the request
+          username: user.username 
         })
       });
       
@@ -254,7 +239,6 @@ const ItineraryPlanner = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-gray-800">
-      {/* Header */}
       <header className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
@@ -299,7 +283,6 @@ const ItineraryPlanner = () => {
       </header>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Error Message */}
         {error && (
           <div className="mb-6 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
             <div className="flex items-center space-x-2">
@@ -309,7 +292,6 @@ const ItineraryPlanner = () => {
           </div>
         )}
 
-        {/* Hero Section */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center space-x-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 px-4 py-2 rounded-full text-sm font-medium mb-4">
             <MapPin className="w-4 h-4" />
@@ -323,7 +305,6 @@ const ItineraryPlanner = () => {
           </p>
         </div>
 
-        {/* Add Activity Form */}
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Add New Activity</h2>
           
@@ -422,7 +403,6 @@ const ItineraryPlanner = () => {
           </div>
         </div>
 
-        {/* Activities List */}
         <div className="space-y-6">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Planned Activities</h2>
           

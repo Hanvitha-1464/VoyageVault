@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const { getActivities, addActivity, deleteActivity } = require('../Controllers/ItineraryController');
-const { validateAddActivity, validateDeleteActivity, handleValidationErrors } = require('../Middleware/ItineraryValidation');
+const {  validateGetActivities, validateAddActivity, validateDeleteActivity, handleValidationErrors } = require('../Middleware/ItineraryValidation');
 
-router.get('/', getActivities);
+router.get('/',validateGetActivities,handleValidationErrors, getActivities);
 
 router.post('/', validateAddActivity, handleValidationErrors, addActivity);
 

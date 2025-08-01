@@ -1,15 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Users, 
-  Plus, 
-  LogIn, 
-  Eye, 
-  EyeOff, 
-  X,
-  Loader2,
-  Bell,
-  Settings
-} from 'lucide-react';
+import { Users,  Plus,  LogIn,  Eye,  EyeOff,  X, Loader2} from 'lucide-react';
 
 const RoomManagement = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -111,7 +101,7 @@ const RoomManagement = () => {
         
         alert(`Room "${data.room.roomName}" created successfully!`);
         
-        window.location.href = `/itinerary/${encodeURIComponent(newRoom.roomName)}`;
+        window.location.href = `/itinerary/${encodeURIComponent(data.room.roomName)}`;
         
       } else {
         if (data.code === 'ROOM_EXISTS') {
@@ -162,7 +152,7 @@ const RoomManagement = () => {
         
         alert(`Successfully joined room "${data.room.roomName}"!`);
 
-        window.location.href = `/itinerary/${encodeURIComponent(joinedRoom.roomName)}`;
+        window.location.href = `/itinerary/${encodeURIComponent(data.room.roomName)}`;
         
       } else {
         if (data.code === 'ROOM_NOT_FOUND') {
@@ -214,7 +204,6 @@ const RoomManagement = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-gray-800">
-      {/* Header */}
       <header className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
@@ -224,12 +213,6 @@ const RoomManagement = () => {
             </a>
             
             <div className="flex items-center space-x-4">
-              {/* <button className="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
-                <Bell className="w-5 h-5" />
-              </button> */}
-              {/* <button className="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
-                <Settings className="w-5 h-5" />
-              </button> */}
               <div className="flex items-center space-x-3">
                 <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
                   <span className="text-white text-sm font-medium">
@@ -244,7 +227,6 @@ const RoomManagement = () => {
       </header>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Hero Section */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center space-x-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-4 py-2 rounded-full text-sm font-medium mb-4">
             <Users className="w-4 h-4" />
@@ -258,7 +240,6 @@ const RoomManagement = () => {
           </p>
         </div>
 
-        {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
           <button
             onClick={() => setShowCreateModal(true)}
@@ -285,7 +266,6 @@ const RoomManagement = () => {
           </button>
         </div>
 
-        {/* My Rooms Section */}
         <div className="space-y-6">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white text-center">My Rooms</h2>
           
@@ -332,7 +312,6 @@ const RoomManagement = () => {
         </div>
       </div>
 
-      {/* Create Room Modal */}
       {showCreateModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full">
@@ -423,7 +402,6 @@ const RoomManagement = () => {
         </div>
       )}
 
-      {/* Join Room Modal */}
       {showJoinModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full">

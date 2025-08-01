@@ -10,7 +10,7 @@ const authRoutes=require("./Routers/AuthRoutes");
 const roomRoutes=require("./Routers/RoomRoutes");
 const itineraryRoutes=require("./Routers/ItineraryRoutes");
 app.use(cors({
-  origin: 'http://localhost:5173', 
+  origin: ['http://localhost:5173', 'https://voyage-vault-mauve.vercel.app'],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE","PATCH"], 
   allowedHeaders: ["Content-Type", "Authorization"],

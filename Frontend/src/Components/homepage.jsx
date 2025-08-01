@@ -2,16 +2,33 @@ import React, { useState } from 'react';
 
 const Home = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+     const [isContactDropdownOpen, setIsContactDropdownOpen] = useState(false);
+      const dropdownRef = useRef(null);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
+    const toggleContactDropdown = () => {
+        setIsContactDropdownOpen(!isContactDropdownOpen);
+    };
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsContactDropdownOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     return (
         <div>
             <nav className="bg-white border-gray-200 dark:bg-gray-900">
                 <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                    <a href="https://flowbite.com/" className="flex items-center space-x-3 rtl:space-x-reverse">
+                    <a href="https://voyage-vault-mauve.vercel.app/" className="flex items-center space-x-3 rtl:space-x-reverse">
                         <img src="/images/VV.png" className="h-8 w-8 rounded-full" alt="VoyageVault Logo" />
                         <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">VoyageVault</span>
                     </a>
@@ -37,9 +54,45 @@ const Home = () => {
                             <li>
                                 <a href="/about" className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</a>
                             </li>
-                            <li>
-                                <a href="#" className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
+                           <li className="relative" ref={dropdownRef}>
+                                <button 
+                                    onClick={toggleContactDropdown}
+                                    className="flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
+                                >
+                                    Contact
+                                    <svg className="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"/>
+                                    </svg>
+                                </button>
+                                
+                                {isContactDropdownOpen && (
+                                    <div className="absolute top-full left-0 z-10 mt-1 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                                        <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                                            <div className="font-medium">Contact Us</div>
+                                        </div>
+                                        <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
+                                            <li>
+                                                <a href="tel:+1234567890" className="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                                    <svg className="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 19 18">
+                                                        <path d="M18 13.446a3.02 3.02 0 0 0-.946-1.985l-1.4-1.4a3.054 3.054 0 0 0-4.218 0l-.7.7a.983.983 0 0 1-1.39 0l-2.1-2.1a.983.983 0 0 1 0-1.389l.7-.7a2.98 2.98 0 0 0 0-4.217l-1.4-1.4a2.824 2.824 0 0 0-4.218 0c-3.619 3.619-3.619 9.495 0 13.114a9.01 9.01 0 0 0 6.55 2.711 9.01 9.01 0 0 0 6.55-2.711A3.02 3.02 0 0 0 18 13.446Z"/>
+                                                    </svg>
+                                                    +1 (234) 567-890
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="mailto:contact@voyagevault.com" className="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                                    <svg className="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
+                                                        <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"/>
+                                                        <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"/>
+                                                    </svg>
+                                                    Email Us
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                )}
                             </li>
+
                             <li>
                                 <a href="/login" className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded md:ml-4 text-center block">
                                     Login
@@ -72,8 +125,8 @@ const Home = () => {
                 <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
                     <div className="md:flex md:justify-between">
                         <div className="mb-6 md:mb-0">
-                            <a href="https://flowbite.com/" className="flex items-center">
-                                <img src="https://flowbite.com/docs/images/logo.svg" className="h-8 me-3" alt="FlowBite Logo" />
+                            <a href="https://voyage-vault-mauve.vercel.app/" className="flex items-center">
+                                <img src="/images/VV.png" className="h-8 me-3" alt="VoyageVault Logo" />
                                 <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
                             </a>
                         </div>
@@ -93,10 +146,10 @@ const Home = () => {
                                 <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Follow us</h2>
                                 <ul className="text-gray-500 dark:text-gray-400 font-medium">
                                     <li className="mb-4">
-                                        <a href="https://github.com/themesberg/flowbite" className="hover:underline">Github</a>
+                                        <a href="#" className="hover:underline">Github</a>
                                     </li>
                                     <li>
-                                        <a href="https://discord.gg/4eeurUVvTy" className="hover:underline">Discord</a>
+                                        <a href="#" className="hover:underline">Discord</a>
                                     </li>
                                 </ul>
                             </div>

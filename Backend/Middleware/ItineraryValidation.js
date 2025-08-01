@@ -1,4 +1,12 @@
-const { body, param, validationResult } = require('express-validator');
+const { body, param, query, validationResult } = require('express-validator');
+
+const validateGetActivities = [
+  query('roomId')
+    .notEmpty()
+    .withMessage('Room ID is required')
+    .isInt({ min: 1 })
+    .withMessage('Room ID must be a valid positive integer')
+];
 
 const validateAddActivity = [
   body('place')
@@ -37,7 +45,13 @@ const validateAddActivity = [
     .notEmpty()
     .withMessage('Added by field is required')
     .isInt({ min: 1 })
-    .withMessage('Added by must be a valid user ID')
+    .withMessage('Added by must be a valid user ID'),
+    
+  body('roomId')
+    .notEmpty()
+    .withMessage('Room ID is required')
+    .isInt({ min: 1 })
+    .withMessage('Room ID must be a valid positive integer')
 ];
 
 const validateDeleteActivity = [
@@ -58,6 +72,7 @@ const handleValidationErrors = (req, res, next) => {
 };
 
 module.exports = {
+  validateGetActivities,
   validateAddActivity,
   validateDeleteActivity,
   handleValidationErrors

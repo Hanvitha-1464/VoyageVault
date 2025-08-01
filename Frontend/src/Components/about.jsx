@@ -17,9 +17,9 @@ const About = () => {
           <ul className="space-y-6 text-gray-700 dark:text-gray-300">
             {[
               "Build and share detailed itineraries",
-              "Track expenses and split costs easily",
-              "Upload and manage travel documents",
-              "Chat with your group to coordinate plans",
+              // "Track expenses and split costs easily",
+              // "Upload and manage travel documents",
+              // "Chat with your group to coordinate plans",
             ].map((item, index) => (
               <li key={index} className="flex items-start space-x-3">
                 <svg
@@ -46,8 +46,8 @@ const About = () => {
         </h2>
         <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
           Travel should be exciting — not overwhelming. VoyageVault keeps your trip
-          organized, collaborative, and stress-free. Say goodbye to scattered messages,
-          lost tickets, and forgotten plans.
+          organized, collaborative, and stress-free. Say goodbye to {/*scattered messages,
+          lost tickets, and*/} forgotten plans.
         </p>
       </section>
     </div>

@@ -12,7 +12,6 @@ const validateCreateRoom = (req, res, next) => {
     errors.push('Room name can only contain letters, numbers, spaces, underscores, and hyphens');
   }
 
-  // Room password validation
   if (!roomPassword) {
     errors.push('Room password is required');
   } else if (roomPassword.length < 4) {
