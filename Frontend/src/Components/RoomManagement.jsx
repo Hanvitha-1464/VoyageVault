@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Users,  Plus,  LogIn,  Eye,  EyeOff,  X, Loader2} from 'lucide-react';
+import { Users,  Plus,  LogIn,  Eye,  EyeOff,  X, Loader2,LogOut} from 'lucide-react';
 
 const RoomManagement = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
